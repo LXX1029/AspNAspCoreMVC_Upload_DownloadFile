@@ -1,0 +1,39 @@
+﻿@using AspNetCoreTest.Models
+@model List<FileModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<html>
+<body>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>文件名</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FileName</td>
+                            <td>@Html.ActionLink("下载", "DownloadFile", new { fileName = item.FileName })</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:20px">
+        <form method="post" asp-controller="home" asp-action="UploadFile" enctype="multipart/form-data">
+            <div><input type="text" name="name" /></div>
+            <input type="file" name="file" placeholder="请选择文件" />
+            <button type="submit">上传文件</button>
+        </form>
+    </div>
+</body>
+</html>
